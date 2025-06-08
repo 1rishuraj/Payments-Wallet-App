@@ -15,18 +15,14 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'        
-          
-      - name: build env variable
+          node-version: '20'
+
+      - name: Create .env file in packages/db from secrets
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          
-      - name: Create .env file in packages/db from secrets
         run: |
-          echo "${DATABASE_URL}"
           cd packages/db
-          touch .env
-          echo DATABASE_URL=${DATABASE_URL} >> .env
+          echo "DATABASE_URL=${DATABASE_URL}" > .env
           cd ../..
 
       - name: Install Dependencies
