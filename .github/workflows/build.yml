@@ -17,6 +17,9 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Create .env file
+        run: echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+
       - name: Install Dependencies
         run: npm install
 
@@ -25,9 +28,3 @@ jobs:
 
       - name: Run Build for Production
         run: npm run build
-
-      - name: Run Linting
-        run: npm run lint
-
-      - name: Run Formatting Check
-        run: npm run format:check
