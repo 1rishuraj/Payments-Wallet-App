@@ -1,7 +1,7 @@
 import express from 'express';
 import prisma from '@repo/db/client'
 const app=express()
-app.use(express.json())
+app.use(express.json()) 
 app.post('/hdfcWebhook',async (req,res)=>{ //hosted by Paytm for getting hit by hdfc server
     const PaymentInfo:{token:string, userId:string, amount:string}={
         token:req.body.token,
