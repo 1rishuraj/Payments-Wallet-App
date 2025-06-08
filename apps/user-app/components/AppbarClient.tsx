@@ -10,6 +10,6 @@ export const AppbarClient = ()=>{
             await signOut()
             route.push('/api/auth/signin')
          }}></Appbar>
-    </div>
+    </div> 
     );
 }
