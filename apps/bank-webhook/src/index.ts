@@ -12,6 +12,7 @@ app.post('/hdfcWebhook',async (req,res)=>{ //hosted by Paytm for getting hit by 
         const txn= await prisma.onRampTransaction.findUnique({
             where:{
                 token:PaymentInfo.token
+                
             }
         })
         if(txn && txn.status=="Processing"){
