@@ -7,7 +7,7 @@ export default {
     "../../packages/ui/src/**/*.{js,ts,jsx,tsx,mdx}"
   ],
   theme: {
-    extend: {},
+    extend: {}, 
   },
   plugins: [],
 }
