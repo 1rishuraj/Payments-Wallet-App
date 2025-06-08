@@ -1,0 +1,33 @@
+name: Linting and Formatting on PR
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  Continuous-Integration:
+    name: Performs linting, formatting on the application
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone The Repository
+        uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Generate Prisma Client
+        run: npm run db:generate
+
+      - name: Run Build for Production
+        run: npm run build
+
+      - name: Run Linting
+        run: npm run lint
+
+      - name: Run Formatting Check
+        run: npm run format:check
