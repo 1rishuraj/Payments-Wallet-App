@@ -6,7 +6,7 @@ app.post('/hdfcWebhook',async (req,res)=>{ //hosted by Paytm for getting hit by 
     const PaymentInfo:{token:string, userId:string, amount:string}={
         token:req.body.token,
         userId:req.body.userId,
-        amount:req.body.amount
+        amount:req.body.amount 
     }
     try{
         const txn= await prisma.onRampTransaction.findUnique({
