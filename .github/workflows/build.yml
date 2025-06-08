@@ -1,13 +1,18 @@
 name: Linting and Formatting on PR
+
 on:
   pull_request:
     branches:
       - main
 
+env:
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
 jobs:
   Continuous-Integration:
     name: Performs linting, formatting on the application
     runs-on: ubuntu-latest
+
     steps:
       - name: Clone The Repository
         uses: actions/checkout@v3
@@ -17,9 +22,10 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Create .env file
-        run: echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> packages/db/.env
-
+      - name: Create .env files for all packages
+        run: |
+          echo "DATABASE_URL=${DATABASE_URL}" > packages/db/.env
+          echo "DATABASE_URL=${DATABASE_URL}" > apps/user-app/.env
 
       - name: Install Dependencies
         run: npm install
