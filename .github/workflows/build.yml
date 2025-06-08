@@ -18,7 +18,7 @@ jobs:
           node-version: '20'
 
       - name: Create .env file
-        run: echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> packages/db/prisma/.env
+        run: echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> packages/db/.env
 
 
       - name: Install Dependencies
