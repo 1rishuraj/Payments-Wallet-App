@@ -23,7 +23,7 @@ jobs:
           touch .env
           echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
           cd ../..
-       
+
       - name: Install Dependencies
         run: npm install
 
@@ -32,3 +32,5 @@ jobs:
 
       - name: Run Build for Production
         run: npm run build
+        env:
+          CI: false
