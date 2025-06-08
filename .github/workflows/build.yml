@@ -22,6 +22,7 @@ jobs:
           cd packages/db
           touch .env
           echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
+          cd ../..
        
       - name: Install Dependencies
         run: npm install
