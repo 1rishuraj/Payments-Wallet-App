@@ -19,8 +19,9 @@ jobs:
 
       - name: Create .env file in packages/db from secrets
         run: |
-          touch packages/db/.env
-          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" > packages/db/.env
+          cd packages/db
+          touch .env
+          echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
        
       - name: Install Dependencies
         run: npm install
