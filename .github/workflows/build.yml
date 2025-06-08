@@ -2,7 +2,7 @@ name: Linting and Formatting on PR
 on:
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
   Continuous-Integration:
