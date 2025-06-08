@@ -8,7 +8,7 @@ export const AppbarClient = ()=>{
     return ( <div>
          <Appbar user={session.data?.user} onSignin={signIn} onSignout={async () =>{
             await signOut()
-            route.push('/api/auth/signin')
+            route.push('/api/auth/signin') 
          }}></Appbar>
     </div>
     );
