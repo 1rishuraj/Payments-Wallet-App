@@ -9,21 +9,8 @@ jobs:
     name: Performs linting, formatting on the application
     runs-on: ubuntu-latest
     steps:
-      - name: Clone The Repository
-        uses: actions/checkout@v3
-
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Generate Prisma Client
-        run: npm run db:generate
-
-      - name: Run Build for Production
+      - name: Print name
+        run: echo "Hello. $BUILD. My API_KEY is ${{secrets.API_KEY}}"
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: npm run build
+          BUILD: 'We are currently running the Build job'
+    
