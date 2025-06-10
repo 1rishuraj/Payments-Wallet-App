@@ -1,85 +1,121 @@
-# Turborepo starter
+# 💰 Payments Wallet App
 
-This Turborepo starter is maintained by the Turborepo core team.
+A **full-stack Paytm Wallet** clone built with **Next.js (TypeScript)**, **Express (TypeScript)**, **PostgreSQL**, and **Prisma ORM**, featuring:
 
-## Using this example
+* OnRamp transactions (bank to wallet)
+* Peer-to-peer (P2P) wallet transfers
+* Transaction history
+* UI state management with **Jotai** atoms
+* CI/CD via Docker & GitHub Actions, deployed to AWS EC2
 
-Run the following command:
+---
 
-```sh
-npx create-turbo@latest
+## 🚀 Features
+
+* 🔐 **Authentication**
+
+  * Secure login/signup with NextAuth.js
+
+* 🏦 **/dashboard**
+
+  * Displays authenticated user dashboard
+
+* 💸 **/transfer**
+
+  * Simulate bank-to-wallet OnRamp transaction
+  * View current wallet balance
+
+* 👥 **/p2ptransfer**
+
+  * Transfer Paytm Wallet balance to another user
+  * List of registered users
+
+* 📜 **/transactions**
+
+  * View complete OnRamp and P2P transaction history
+
+
+
+---
+
+## ⚙️ System Architecture
+
+### 🧠 Architecture Overview
+
+* **Frontend/Backend:** Next.js (TypeScript) app styled with Tailwind CSS
+* **Webhook Server:** Node JS - Express (TypeScript) server receives simulated bank callbacks for OnRamp success
+* **Database:** PostgreSQL accessed through Prisma ORM
+* **Monorepo:** Managed with Turborepo
+* **CI/CD:** Docker + GitHub Actions for builds and deployment to EC2
+* **State Management:** `Jotai` atoms for global state (e.g., sidebar highlight)
+
+
+### 🔄 OnRamp Flow (Bank to Wallet)
+
+1. User clicks "Add Money"
+2. Frontend sends payment request to a simulated bank API
+3. To complete the requested payment, bank API hits a **webhook server**. 
+4. Webhook securely updates wallet balance using Express (TypeScript) + Prisma
+
+> ⚠️ Webhook server ensures **idempotent**, asynchronous updates under load, preventing frontend inconsistencies
+
+### 🔐 P2P Transfer Atomicity
+
+To prevent double withdrawal when a user clicks transfer multiple times:
+- Used PostgreSQL's `FOR UPDATE` locking on `Balance` table for sender row.
+- Ensures atomic transactions using `prisma.$transaction`. 
+
+### 🎨 Jotai State Management
+
+* Global state atoms using `Jotai` in `packages/store`
+* Active sidebar element tracking for dynamic UI feedback
+
+---
+
+## 🛠️ Tech Stack
+
+| Tech              | Role                              |
+| ----------------- | --------------------------------- |
+| Next.js (TypeScript)| Fullstack frontend/backend        |
+| Tailwind CSS      | UI styling                        |
+| Node.js + Express (TypeScript) | Webhook server                    |
+| PostgreSQL        | Database                          |
+| Prisma ORM        | Type-safe DB client               |
+| Jotai             | Global state management (sidebar) |
+| Turborepo         | Monorepo manager                  |
+| GitHub Actions    | Continuous Integration & Delivery |
+| Docker            | Containerization                  |
+| AWS EC2           | Cloud deployment                  |
+
+---
+
+## 📂 Folder Structure
+
+```
+paytm-wallet-clone/
+├── apps/
+│   ├── user-app/           # Next.js (TypeScript) frontend
+│   └── webhook-server/     # Express (TypeScript) webhook backend
+├── packages/
+│   ├── db/                 # Prisma schema + migrations
+│   └── store/              # Jotai atoms for global state
+├── .github/
+│   └── workflows/          # CI/CD GitHub Actions configs
+├── docker/                
+│   └── Dockerfile.user     # Dockerfile for user app
+└── turbo.json              # Turborepo config file
 ```
 
-## What's inside?
+---
 
-This Turborepo includes the following packages/apps:
+## 👨‍💻 Author
 
-### Apps and Packages
+**Rishu Raj**
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+* 📧 [rishuraj1702@gmail.com](mailto:rishuraj1702@gmail.com)
+* 🐦 [@\_rishu\_raj](https://x.com/_rishu_raj)
+* 💻 [github.com/1rishuraj](https://github.com/1rishuraj)
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+---
 
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm dev
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
-"# Payments-Wallet-App" 
+Ready to deploy and scale. Built for performance, usability, and security.
