@@ -8,6 +8,9 @@ A **full-stack Paytm Wallet** clone built with **Next.js (TypeScript)**, **Expre
 * UI state management with **Jotai** atoms
 * CI/CD via Docker & GitHub Actions, deployed to AWS EC2
 
+
+![ezgif-3a40323f4f4648](https://github.com/user-attachments/assets/5f0b6f54-6a02-4a45-a0d2-bd5c89eb2389)
+
 ---
 
 ## 🚀 Features
